@@ -1,0 +1,120 @@
+ html,body {
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    height: 100vh;
+    background-image: url("./background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 为了把时钟主体居中摆置 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clockBox{
+    height: 300px;
+    width: 300px;
+    border: 10px solid white;
+    border-radius: 50%;
+    /* 相对于static时的默认位置进行偏移,可以指定top,bottom,left和right四个属性 */
+    position: relative;
+
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#kedu li{
+    width: 2px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: black;
+    /* 设置li标签的旋转中心和旋转半径。 */
+    transform-origin: center 149px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -1px;
+}
+
+#kedu li:nth-of-type(5n+1){
+    height: 30px;
+    width: 4px;
+}
+
+#number li{
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    left: 50%;
+    top: 35px;
+    margin-left: -6px;
+    transform-origin: center 115px;
+}
+
+#number li:nth-of-type(3n+1){
+    font-size: 20px;
+    color: black;
+}
+
+#number span{
+    display: block;
+}
+
+
+/* 圆心 */
+.circle {
+    /* 相对于上级元素进行偏移，定位元素是父元素，父元素不可以是默认定位，可以搭配top等使用 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    /* 修正宽度和高度 */
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+.hour,.min,.sec{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 5px;
+    margin-top: -5px;
+    transform-origin: center 5px;
+    transform: rotate(180deg);
+}
+
+/* 时针 */
+.hour{
+    background: black;
+    width: 10px;
+    height: 50px;
+    /* 修正宽度和高度 */
+    margin-left: -5px;
+    
+}
+
+/* 分针 */
+.min{
+    background: green;
+    width: 6px;
+    height: 70px;
+    margin-left: -3px;
+}
+
+/* 秒针 */
+.sec{
+    background: red;
+    width: 3px;
+    height: 90px;
+    margin-left: -1px;
+}

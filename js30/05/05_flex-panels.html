@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Amatic+SC">
+    <title>05_Flex-panels</title>
+</head>
+<body>
+    <style>
+        body,html{
+            padding: 0;
+            margin: 0;
+            background-color: blueviolet;
+        }
+        /* 五个panel水平排列 */
+        .container{
+            display: flex;
+            flex-direction: row;
+            width: 100%;
+            min-height: 100vh;
+        }
+        /* 每个panel内部左右居中，上下均匀排序 */
+        .panel{
+            color: white;
+            background-size: cover;
+            background-position: center;
+            /* 移动之后超出的部分需要隐藏 */
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            /* 交叉轴居中 */
+            align-items: center;
+            /* 主轴居中 */
+            justify-content: center;
+            flex: 1;
+            font-size: 20px;
+            /* 属性在一段时间内变化 */
+            transition:
+            font-size 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+            flex 0.7s cubic-bezier(0.61,-0.19, 0.7,-0.11),
+            background 0.2s;
+            border-right: 10px solid grey;
+        }
+        .panel:last-child{ 
+            border: none;
+        }
+        p{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1 0 auto;
+            margin: 0;
+            transition: transform 0.5s;
+            text-transform: uppercase;
+            font-family: 'Amatic SC',cursive;
+            text-shadow: 0 0 4px rgba(0,0,0,0.72),0 0 14px rgba(0,0,0,0.45);
+        }
+        /* 隐藏第一个p */
+        p:nth-child(1){
+            transform:translateY(-100%);
+        }
+        /* 隐藏第三个p */
+        p:nth-child(3){
+            /* transform变形属性 translateY Y方向移动 */
+            transform:translateY(100%);
+        }
+
+        /* 展开时 */
+        .panel-open{
+            flex-grow: 5;
+        }
+        /* 恢复到展开的情况 */
+        .panel-open p:nth-child(1){
+            transform:translateY(0);
+        }
+
+        .panel-open p:nth-child(2){
+            font-size: 40px;
+        }
+
+        .panel-open p:nth-child(3){
+            transform:translateY(0);
+        }
+    </style>
+    <div class="container">
+        <div class="panel1 panel" onclick="clickOpen(1)">
+            <p>Hey</p>
+            <p>Let's</p>
+            <p>Dance</p>
+        </div>
+        <div class="panel2 panel" onclick="clickOpen(2)">
+            <p>Give</p>
+            <p>Take</p>
+            <p>Receive</p>
+        </div>
+        <div class="panel3 panel" onclick="clickOpen(3)">
+            <p>Experience</p>
+            <p>It</p>
+            <p>Today</p>
+        </div>
+        <div class="panel4 panel" onclick="clickOpen(4)">
+            <p>Give</p>
+            <p>All</p>
+            <p>You can</p>
+        </div>
+        <div class="panel5 panel" onclick="clickOpen(5)">
+            <p>Life</p>
+            <p>In</p>
+            <p>Motion</p>
+        </div>
+    </div>
+    <script>
+        function clickOpen(num){
+            // panelOpen是一个list
+            const panelOpen = document.getElementsByClassName(`panel${num} panel-open`)
+            const panel = document.getElementsByClassName(`panel${num}`)
+            // 如果点击的是已经打开的panel
+            if(panelOpen[0]){
+                panelOpen[0].classList.remove('panel-open')
+            }else {
+                panel[0].classList.add('panel-open')
+            }
+        }
+    </script>
+</body>
+</html>

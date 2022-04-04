@@ -1,0 +1,59 @@
+html,body{
+    /* 取消默认样式 */
+    margin: 0;
+    padding: 0;
+}
+
+/* 整个容器 */
+.container{
+    background-image: url("./background.jpg");
+    /* 充满整个屏幕 */
+    height: 100vh;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 主体内容需要在界面垂直水平居中 */
+.main{
+    display: flex;
+}
+
+.main > .box:first-child{
+    margin-left: 0px;
+}
+
+/* 第一个盒子 */
+.box{
+    height: 80px;
+    width: 80px;
+    border: 2px solid black;
+    /* 里面的元素在盒子当中垂直水平居中 */
+    display: flex;
+    /* flex布局的默认排列为水平排列，改为竖直排列 */
+    flex-direction: column;
+    /* 交叉轴居中 */
+    align-items: center;
+    /* 主轴居中 */
+    justify-content: center;
+    /* 每个盒子有一定的间隙 */
+    margin-left: 20px; 
+}
+
+.content{
+    font-size: 30px;
+    color: white;
+}
+
+.description{
+    font-size: 16px;
+    color: yellow;
+}
+
+.playing {
+    transform: scale(1.1);
+    border-color: #ffc600;
+    box-shadow: 0 0 1rem #ffc600;
+}

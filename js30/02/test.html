@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <link rel="stylesheet" href="./index.css" type="text/css"> -->
+    <title>CLOCK</title>
+    <style>
+         html,body {
+    margin: 0;
+    padding: 0;
+}
+
+#container{
+    height: 100vh;
+    background-image: url("./background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    /* 为了把时钟主体居中摆置 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#clockBox{
+    height: 300px;
+    width: 300px;
+    border: 10px solid white;
+    border-radius: 50%;
+    /* 相对于static时的默认位置进行偏移,可以指定top,bottom,left和right四个属性 */
+    position: relative;
+
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+#kedu li{
+    width: 2px;
+    height: 20px;
+    border-radius: 5px;
+    background-color: black;
+    /* 设置li标签的旋转中心和旋转半径。 */
+    transform-origin: center 149px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    margin-left: -1px;
+}
+
+#kedu li:nth-of-type(5n+1){
+    height: 30px;
+    width: 4px;
+}
+
+#number li{
+    position: absolute;
+    color: white;
+    font-size: 16px;
+    left: 50%;
+    top: 35px;
+    margin-left: -6px;
+    transform-origin: center 115px;
+}
+
+#number li:nth-of-type(3n+1){
+    font-size: 20px;
+    color: black;
+}
+
+#number span{
+    display: block;
+}
+
+
+/* 圆心 */
+.circle {
+    /* 相对于上级元素进行偏移，定位元素是父元素，父元素不可以是默认定位，可以搭配top等使用 */
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    background: white;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    /* 修正宽度和高度 */
+    margin-top: -5px;
+    margin-left: -5px;
+}
+
+.hour,.min,.sec{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    border-radius: 5px;
+    margin-top: -5px;
+    transform-origin: center 5px;
+    transform: rotate(180deg);
+}
+
+/* 时针 */
+.hour{
+    background: black;
+    width: 10px;
+    height: 50px;
+    /* 修正宽度和高度 */
+    margin-left: -5px;
+    
+}
+
+/* 分针 */
+.min{
+    background: green;
+    width: 6px;
+    height: 70px;
+    margin-left: -3px;
+}
+
+/* 秒针 */
+.sec{
+    background: red;
+    width: 3px;
+    height: 90px;
+    margin-left: -1px;
+}
+    </style>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <!-- <script type = "text/javascript" defer src = "./index.js"></script> -->
+</head>
+<body>
+   <div id="container">
+       <div id="clockBox">
+        <ul id="kedu"></ul>
+        <ul id="number"></ul>
+        <div class="circle"></div>
+        <div class="hour"></div>
+        <div class="min"></div>
+        <div class="sec"></div>
+       </div>
+   </div>
+    <script>
+        function createKedu(){
+    var ul = document.getElementById("kedu")
+    var lis = "";
+    ul.innerHTML = ''
+    for( var i = 0; i< 60; i++){
+        lis+= "<li style='transform: rotate(" + i*6 + "deg)' ></li>"
+    }
+    ul.innerHTML+=lis;
+}
+createKedu();
+
+function createNumber(){
+    var ul = document.getElementById("number")
+    var lis = "";
+    ul.innerHTML = ''
+    lis+= "<li>12</li>"
+    for( var i = 1; i< 12; i++){
+        lis+= "<li style='transform: rotate(" + i*30 + "deg)' > <span style = 'transform: rotate(" + -i*30 + "deg)'>" + i + "</span> </li>"
+    }
+    ul.innerHTML+=lis;
+}
+createNumber();
+
+function initTime(){
+    var time = new Date();
+    var hour = time.getHours() >12 ? time.getHours() -12 : time.getHours
+    var min = time.getMinutes();
+    var sec = time.getSeconds();
+    var milsec = time.getMilliseconds();
+    var hourAngle = (hour * 30 + (min * 6 / 12) + 180 ) % 360;
+    var minAngle = (min * 6 + (sec * 6 / 60 ) + 180 ) % 360;
+    var secAngle = (sec * 6 + (milsec * 0.36 / 1000 ) + 180 ) % 360;
+    var hourDom = document.querySelector(".hour")
+    hourDom.style.transform = `rotate(${hourAngle}deg)`
+    var minDom = document.querySelector(".min")
+    minDom.style.transform = `rotate(${minAngle}deg)`
+    var secDom = document.querySelector(".sec")
+    secDom.style.transform = `rotate(${secAngle}deg)`  
+}
+
+setInterval(initTime, 1000);
+initTime();
+    </script>
+</body>
+</html> 
