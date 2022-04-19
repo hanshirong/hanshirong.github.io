@@ -39,6 +39,11 @@ function draw(e){
     if(e.type =="mousemove"){
         x = e.offsetX;
 		y = e.offsetY;
+    } else  {
+        // 处理触摸屏操作
+            x = e.changedTouches[0].clientX -e.target.offsetLeft;
+            y = e.changedTouches[0].clientY-e.target.offsetTop;
+        // console.log(e);
     }
     ctx.beginPath();
     ctx.moveTo(lastX,lastY);
@@ -60,6 +65,16 @@ canvas.addEventListener('mousemove', draw);
 canvas.addEventListener('mouseup', () => isDrawing = false);
 // 鼠标一旦离开canvas容器，必须将draw函数给清理掉
 canvas.addEventListener('mouseout', () => isDrawing = false);
+
+canvas.addEventListener('touchstart', (e) => {
+    isDrawing = true;
+    lastX = e.changedTouches[0].clientX-e.target.offsetLeft;
+    lastY = e.changedTouches[0].clientY-e.target.offsetTop;
+});
+
+canvas.addEventListener('touchmove', draw);
+canvas.addEventListener('touchend', () => isDrawing = false);
+canvas.addEventListener('touchcancel', () => isDrawing = false);
 
 // 清空当前画布
 var btn = document.getElementById("clear");
